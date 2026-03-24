@@ -1,0 +1,13 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.csproj.user
+packages/
+
+node_modules/
+dist/
+.env
+appsettings.Development.json
+current.json

@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./WeatherApp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - WeatherApi__Key=${WEATHER_API_KEY}
+      - WeatherApi__BaseUrl=https://api.weatherapi.com/v1
+      - Cors__Origins__0=http://localhost:3000
+    expose:
+      - "5106"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5106/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./ClientApp
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
